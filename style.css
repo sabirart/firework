@@ -24,7 +24,7 @@ canvas {
 /* Control panel styling */
 .controls {
     position: absolute;
-    top: 20px;
+    top: 2%;
     right: 20px;
     color: white;
     font-family: Arial, sans-serif;
