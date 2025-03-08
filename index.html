@@ -50,11 +50,12 @@
 
 <!-- How to Use -->
 <div class="popup-overlay show" id="popup">
+    <div class="hover-circle"></div> <!-- Hover Effect Circle -->
     <div class="popup-box">
         <button class="close-btn" id="closePopup">✖</button> <!-- Close Button -->
-        <h2>Welcome to Fireworks Experience!</h2>
-        <p>Enjoy a stunning display of Fireworks with these Controls</p>
-        <ul>
+        <h2 style="text-align: center;">Welcome to Fireworks Experience!</h2>
+        <p style="text-align: center;">Enjoy a stunning display of Fireworks with these Controls</p>
+       <br> <ul>
             <p><b>Click Anywhere</b> - Launch Fireworks Using Mouse</p>
             <p><b>Press F</b> - Toggle Fullscreen</p>
             <p><b>Press M</b> - Mute/Unmute Sound</p>
@@ -64,11 +65,16 @@
             <p><b>Intensity Slider</b> - Adjust Intensity of Fireworks Explosions</p>
         </ul>
 
-        <!-- Countdown Timer -->
-        <div class="countdown-container">
-            <div class="progress-ring"></div>
-            <div class="countdown-circle" id="countdown">5</div>
-        </div>
+       <!-- Countdown Timer -->
+<div class="countdown-container">
+    <div class="progress-ring"></div>
+    <div class="countdown-circle" id="countdown">5</div>
+    <div class="dot-animation">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+</div>
     </div>
 </div>
 <script src="script.js"></script>
