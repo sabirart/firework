@@ -182,12 +182,13 @@ if (countdownElement && popup && closePopupBtn && countdownContainer) {
             countdown--;
             countdownElement.textContent = countdown;
         } else {
-            countdownContainer.style.display = "none"; // Hide countdown section
+            countdownContainer.classList.add("hide"); // Hide countdown section
             clearInterval(timer);
         }
     }
 
     // Start countdown
+    countdownContainer.classList.add("active"); // Show dot animation
     let timer = setInterval(updateCountdown, 1000);
 
     // Auto close pop-up after 5 seconds
@@ -207,13 +208,92 @@ if (countdownElement && popup && closePopupBtn && countdownContainer) {
 
     function closePopup() {
         popup.classList.remove("show");
-        countdownContainer.style.display = "none"; // Hide countdown section if closed manually
+        countdownContainer.classList.add("hide"); // Hide countdown section if closed manually
         clearInterval(timer); // Stop countdown when manually closed
     }
 }
 
+//MOUSE HOVER EFFECT
+document.addEventListener("DOMContentLoaded", function () {
+    const popupBox = document.querySelector(".popup-box");
 
+    // Track mouse movement and update CSS variables
+    if (popupBox) {
+        popupBox.addEventListener("mousemove", (e) => {
+            const rect = popupBox.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left; // X position relative to the popup-box
+            const mouseY = e.clientY - rect.top; // Y position relative to the popup-box
 
+            // Update CSS variables for the hover effect
+            popupBox.style.setProperty("--mouse-x", `${mouseX}px`);
+            popupBox.style.setProperty("--mouse-y", `${mouseY}px`);
+        });
+
+        // Reset the effect when the mouse leaves the popup-box
+        popupBox.addEventListener("mouseleave", () => {
+            popupBox.style.setProperty("--mouse-x", `-100px`);
+            popupBox.style.setProperty("--mouse-y", `-100px`);
+        });
+    }
+});
+document.addEventListener("DOMContentLoaded", function () {
+    const controlers = document.querySelector(".controlers");
+    const controls = document.querySelector(".controls");
+
+    // Function to add hover effect
+    function addHoverEffect(element) {
+        if (element) {
+            element.addEventListener("mousemove", (e) => {
+                const rect = element.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left; // X position relative to the element
+                const mouseY = e.clientY - rect.top; // Y position relative to the element
+
+                // Update CSS variables for the hover effect
+                element.style.setProperty("--mouse-x", `${mouseX}px`);
+                element.style.setProperty("--mouse-y", `${mouseY}px`);
+            });
+
+            // Reset the effect when the mouse leaves the element
+            element.addEventListener("mouseleave", () => {
+                element.style.setProperty("--mouse-x", `-100px`);
+                element.style.setProperty("--mouse-y", `-100px`);
+            });
+        }
+    }
+
+    // Add hover effect to both elements
+    addHoverEffect(controlers);
+    addHoverEffect(controls);
+});
+document.addEventListener("DOMContentLoaded", function () {
+    const contactContent = document.querySelector(".contact-content");
+    const bankDetails = document.querySelector(".bank-details");
+
+    // Function to add hover effect
+    function addHoverEffect(element) {
+        if (element) {
+            element.addEventListener("mousemove", (e) => {
+                const rect = element.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left; // X position relative to the element
+                const mouseY = e.clientY - rect.top; // Y position relative to the element
+
+                // Update CSS variables for the hover effect
+                element.style.setProperty("--mouse-x", `${mouseX}px`);
+                element.style.setProperty("--mouse-y", `${mouseY}px`);
+            });
+
+            // Reset the effect when the mouse leaves the element
+            element.addEventListener("mouseleave", () => {
+                element.style.setProperty("--mouse-x", `-100px`);
+                element.style.setProperty("--mouse-y", `-100px`);
+            });
+        }
+    }
+
+    // Add hover effect to both elements
+    addHoverEffect(contactContent);
+    addHoverEffect(bankDetails);
+});
 // Initialize Canvas and Context
 const canvas = document.getElementById('fireworksCanvas');
 const ctx = canvas.getContext('2d');
