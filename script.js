@@ -215,85 +215,40 @@ if (countdownElement && popup && closePopupBtn && countdownContainer) {
 
 //MOUSE HOVER EFFECT
 document.addEventListener("DOMContentLoaded", function () {
-    const popupBox = document.querySelector(".popup-box");
+    // Function to add hover effect to an element
+    function addHoverEffect(element) {
+        if (!element) return; // Exit if the element doesn't exist
 
-    // Track mouse movement and update CSS variables
-    if (popupBox) {
-        popupBox.addEventListener("mousemove", (e) => {
-            const rect = popupBox.getBoundingClientRect();
-            const mouseX = e.clientX - rect.left; // X position relative to the popup-box
-            const mouseY = e.clientY - rect.top; // Y position relative to the popup-box
+        // Track mouse movement and update CSS variables
+        element.addEventListener("mousemove", (e) => {
+            const rect = element.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left; // X position relative to the element
+            const mouseY = e.clientY - rect.top; // Y position relative to the element
 
             // Update CSS variables for the hover effect
-            popupBox.style.setProperty("--mouse-x", `${mouseX}px`);
-            popupBox.style.setProperty("--mouse-y", `${mouseY}px`);
+            element.style.setProperty("--mouse-x", `${mouseX}px`);
+            element.style.setProperty("--mouse-y", `${mouseY}px`);
         });
 
-        // Reset the effect when the mouse leaves the popup-box
-        popupBox.addEventListener("mouseleave", () => {
-            popupBox.style.setProperty("--mouse-x", `-100px`);
-            popupBox.style.setProperty("--mouse-y", `-100px`);
+        // Reset the effect when the mouse leaves the element
+        element.addEventListener("mouseleave", () => {
+            element.style.setProperty("--mouse-x", `-100px`);
+            element.style.setProperty("--mouse-y", `-100px`);
         });
     }
+
+    // Apply hover effect to all elements with the hover effect
+    const elementsWithHoverEffect = [
+        document.querySelector(".popup-box"),
+        document.querySelector(".controlers"),
+        document.querySelector(".controls"),
+        document.querySelector(".contact-content"),
+        document.querySelector(".bank-details"),
+    ];
+
+    elementsWithHoverEffect.forEach((element) => addHoverEffect(element));
 });
-document.addEventListener("DOMContentLoaded", function () {
-    const controlers = document.querySelector(".controlers");
-    const controls = document.querySelector(".controls");
 
-    // Function to add hover effect
-    function addHoverEffect(element) {
-        if (element) {
-            element.addEventListener("mousemove", (e) => {
-                const rect = element.getBoundingClientRect();
-                const mouseX = e.clientX - rect.left; // X position relative to the element
-                const mouseY = e.clientY - rect.top; // Y position relative to the element
-
-                // Update CSS variables for the hover effect
-                element.style.setProperty("--mouse-x", `${mouseX}px`);
-                element.style.setProperty("--mouse-y", `${mouseY}px`);
-            });
-
-            // Reset the effect when the mouse leaves the element
-            element.addEventListener("mouseleave", () => {
-                element.style.setProperty("--mouse-x", `-100px`);
-                element.style.setProperty("--mouse-y", `-100px`);
-            });
-        }
-    }
-
-    // Add hover effect to both elements
-    addHoverEffect(controlers);
-    addHoverEffect(controls);
-});
-document.addEventListener("DOMContentLoaded", function () {
-    const contactContent = document.querySelector(".contact-content");
-    const bankDetails = document.querySelector(".bank-details");
-
-    // Function to add hover effect
-    function addHoverEffect(element) {
-        if (element) {
-            element.addEventListener("mousemove", (e) => {
-                const rect = element.getBoundingClientRect();
-                const mouseX = e.clientX - rect.left; // X position relative to the element
-                const mouseY = e.clientY - rect.top; // Y position relative to the element
-
-                // Update CSS variables for the hover effect
-                element.style.setProperty("--mouse-x", `${mouseX}px`);
-                element.style.setProperty("--mouse-y", `${mouseY}px`);
-            });
-
-            // Reset the effect when the mouse leaves the element
-            element.addEventListener("mouseleave", () => {
-                element.style.setProperty("--mouse-x", `-100px`);
-                element.style.setProperty("--mouse-y", `-100px`);
-            });
-        }
-    }
-
-    // Add hover effect to both elements
-    addHoverEffect(contactContent);
-    addHoverEffect(bankDetails);
-});
 // Initialize Canvas and Context
 const canvas = document.getElementById('fireworksCanvas');
 const ctx = canvas.getContext('2d');
@@ -341,6 +296,21 @@ const backgroundMusicTracks = [
 ];
 let currentTrackIndex = 0; // Track the currently playing music
 backgroundMusicTracks.forEach(track => track.audio.loop = true); // Loop all tracks
+
+// Pause all audio on page load
+function pauseAllAudio() {
+    fireworkSounds.forEach(sound => {
+        sound.pause(); // Pause firework sounds
+        sound.currentTime = 0; // Reset to start
+    });
+    backgroundMusicTracks.forEach(track => {
+        track.audio.pause(); // Pause background music
+        track.audio.currentTime = 0; // Reset to start
+    });
+}
+
+// Call pauseAllAudio on page load
+document.addEventListener('DOMContentLoaded', pauseAllAudio);
 
 // Music Toggle Functionality
 const musicToggle = document.getElementById('music-toggle');
