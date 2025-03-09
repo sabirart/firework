@@ -11,69 +11,72 @@
     <link rel="icon" type="image/png" href="icons/favicon.png">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Offline Page Styles */
-        #offline-page {
-            display: none; /* Hidden by default */
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #1a1a1a;
-            color: #ffffff;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            z-index: 1000; /* Ensure it appears above other content */
-            font-family: 'Arial', sans-serif;
-        }
-        #offline-page .container {
-            max-width: 600px;
-            padding: 20px;
-            animation: fadeIn 1s ease-in-out; /* Smooth fade-in animation */
-        }
-        #offline-page .logo {
-            width: 80px; /* Adjust logo size */
-            height: auto;
-            margin-bottom: 20px;
-            animation: bounce 2s infinite; /* Fun bounce animation */
-        }
-        #offline-page h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: #ffcc00; /* Brand color for the heading */
-        }
-        #offline-page p {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            color: #e0e0e0; /* Light gray for better readability */
-        }
-        #offline-page .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 1rem;
-            color: #1a1a1a;
-            background-color: #ffcc00;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        #offline-page .btn:hover {
-            background-color: #e6b800; /* Darker yellow on hover */
-        }
-    
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-20px); }
-            60% { transform: translateY(-10px); }
-        }
+       /* Offline Page Styles */
+#offline-page {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 1000; /* Ensure it appears above other content */
+    font-family: 'Arial', sans-serif;
+    pointer-events: none; /* Disable all pointer events */
+}
+#offline-page .container {
+    max-width: 600px;
+    padding: 20px;
+    animation: fadeIn 1s ease-in-out; /* Smooth fade-in animation */
+    pointer-events: auto; /* Enable pointer events for the container */
+}
+#offline-page .logo {
+    width: 80px; /* Adjust logo size */
+    height: auto;
+    margin-bottom: 20px;
+    animation: bounce 2s infinite; /* Fun bounce animation */
+}
+#offline-page h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #ffcc00; /* Brand color for the heading */
+}
+#offline-page p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #e0e0e0; /* Light gray for better readability */
+}
+#offline-page .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #1a1a1a;
+    background-color: #ffcc00;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    pointer-events: auto; /* Enable pointer events for the button */
+}
+#offline-page .btn:hover {
+    background-color: #e6b800; /* Darker yellow on hover */
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-20px); }
+    60% { transform: translateY(-10px); }
+}
     </style>
 </head>
 <body>
@@ -187,6 +190,22 @@
         document.getElementById('retry-btn').addEventListener('click', () => {
             window.location.reload(); // Reload the page
         });
+        // Disable text selection and clicks on the offline page
+document.addEventListener('DOMContentLoaded', () => {
+    const offlinePage = document.getElementById('offline-page');
+    if (offlinePage) {
+        // Disable text selection
+        offlinePage.style.userSelect = 'none';
+        offlinePage.style.webkitUserSelect = 'none';
+        offlinePage.style.msUserSelect = 'none';
+        offlinePage.style.mozUserSelect = 'none';
+
+        // Disable right-click (optional)
+        offlinePage.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+        });
+    }
+});
     </script>
 </body>
 </html>
