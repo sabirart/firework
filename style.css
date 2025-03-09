@@ -276,13 +276,13 @@ canvas {
 
 /* Pop-up Content Box */
 .popup-box {
-    background: rgba(15, 15, 15, 0.45);
+    background: linear-gradient(150deg, rgba(65, 65, 65, 0.3), rgba(15, 15, 15, 0.45));
     backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: #ffffff;
     width: 90%;
-    max-width: 600px;
-    padding: 26px 22px 0px 22px;
+    max-width: 550px;
+    padding: 22px 20px 10px 20px;
     border-radius: 12px;
     text-align: left;
     transform: translateY(-25px);
@@ -309,18 +309,22 @@ canvas {
     height: 100%;
     background: radial-gradient(
         circle at var(--mouse-x) var(--mouse-y),
-        rgba(255, 255, 255, 0.15) 0%,
-        rgba(255, 255, 255, 0.05) 20%,
-        transparent 40%
+        rgba(255, 255, 255, 0.1) 0%,   /* Softer glow effect */
+        rgba(255, 255, 255, 0.1) 8%, /* Smooth spread */
+        rgba(255, 255, 255, 0.04) 45%, /* Fades gradually */
+        transparent 80%
     );
     pointer-events: none;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.1s ease-in-out, transform 0.2s ease-out;
+    filter: blur(12px);  /* Soft blur to remove hard rings */
     z-index: -1; /* Ensure it stays behind the content */
 }
 
+/* Show effect on hover */
 .popup-box:hover::before {
     opacity: 1;
+    transform: scale(1.1);  /* Smooth expansion */
 }
 
 /* Smooth pop-up entrance */
@@ -328,6 +332,7 @@ canvas {
     transform: translateY(0);
     opacity: 1;
 }
+
 
 /* Countdown Timer */
 .countdown-container {
@@ -337,24 +342,6 @@ canvas {
     align-items: center;
     position: relative;
     width: 100%; /* Ensure full width for proper centering */
-}
-
-.countdown-circle {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: #ff4c4c;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 10px;
-    font-weight: bold;
-    margin-top: 10px;
-    transition: opacity 0.5s ease-in-out;
-    opacity: 1; /* Initially visible */
-    position: relative; /* Ensure it stays in the flow */
-    z-index: 1; /* Ensure it appears above the dot animation */
 }
 
 /* Hide countdown number when the timer starts */
@@ -429,37 +416,6 @@ canvas {
 .close-btn:hover {
     color: #ff4c4c;
 }
-
-/* Countdown Timer */
-.countdown-container {
-    margin-top: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.countdown-circle {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: #ff4c4c;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 20px;
-    font-weight: bold;
-    margin-top: 10px;
-    transition: opacity 0.5s ease-in-out;
-}
-
-/* Hide countdown smoothly */
-.countdown-container.hide {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s ease-in-out, visibility 0.5s;
-}
-
 
 /* Custom Alert */
 #custom-alert {
