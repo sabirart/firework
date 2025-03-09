@@ -5,11 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/open-props"/>
-     <!-- EmailJS Integration -->
-  <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <!-- EmailJS Integration -->
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <title>Professional Fireworks Effect</title>
     <link rel="icon" type="image/png" href="icons/favicon.png">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Offline Page Styles */
+        #offline-page {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 1000; /* Ensure it appears above other content */
+        }
+        #offline-page .container {
+            max-width: 600px;
+            padding: 20px;
+        }
+        #offline-page h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        #offline-page p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        #offline-page .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: #1a1a1a;
+            background-color: #ffcc00;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        #offline-page .btn:hover {
+            background-color: #e6b800;
+        }
+    </style>
 </head>
 <body>
     <!-- Canvas for fireworks -->
@@ -34,7 +78,6 @@
         </label>
     </div>
 
-
     <!-- Bottom Control Panel -->
     <div class="controls">
         <div class="icon fullscreen" id="fullscreen-toggle" title="Toggle Fullscreen"></div>
@@ -48,36 +91,38 @@
     <!-- Help Icon -->
     <div id="help-icon" title="How To Use (HELP)">?</div>
 
-<!-- How to Use -->
-<div class="popup-overlay show" id="popup">
-    <div class="hover-circle"></div> <!-- Hover Effect Circle -->
-    <div class="popup-box">
-        <button class="close-btn" id="closePopup">✖</button> <!-- Close Button -->
-        <h2 style="text-align: center;">Welcome to Fireworks Experience!</h2>
-        <p style="text-align: center;">Enjoy a stunning display of Fireworks with these Controls</p>
-       <br> <ul>
-            <p><b>Click Anywhere</b> - Launch Fireworks Using Mouse</p>
-            <p><b>Press F</b> - Toggle Fullscreen</p>
-            <p><b>Press M</b> - Mute/Unmute Sound</p>
-            <p><b>Music Icon</b> - Cycle through Background Music Tracks</p>
-            <p><b>Mute Icon</b> - Mute/Unmute All Sounds</p>
-            <p><b>Gravity Slider</b> - Adjust Gravity for Fireworks Particles</p>
-            <p><b>Intensity Slider</b> - Adjust Intensity of Fireworks Explosions</p>
-        </ul>
+    <!-- How to Use -->
+    <div class="popup-overlay show" id="popup">
+        <div class="hover-circle"></div> <!-- Hover Effect Circle -->
+        <div class="popup-box">
+            <button class="close-btn" id="closePopup">✖</button> <!-- Close Button -->
+            <h2 style="text-align: center;">Welcome to Fireworks Experience!</h2>
+            <p style="text-align: center;">Enjoy a stunning display of Fireworks with these Controls</p>
+            <br>
+            <ul>
+                <p><b>Click Anywhere</b> - Launch Fireworks Using Mouse</p>
+                <p><b>Press F</b> - Toggle Fullscreen</p>
+                <p><b>Press M</b> - Mute/Unmute Sound</p>
+                <p><b>Music Icon</b> - Cycle through Background Music Tracks</p>
+                <p><b>Mute Icon</b> - Mute/Unmute All Sounds</p>
+                <p><b>Gravity Slider</b> - Adjust Gravity for Fireworks Particles</p>
+                <p><b>Intensity Slider</b> - Adjust Intensity of Fireworks Explosions</p>
+            </ul>
 
-       <!-- Countdown Timer -->
-<div class="countdown-container">
-    <div class="progress-ring"></div>
-    <div class="countdown-circle" id="countdown">5</div>
-    <div class="dot-animation">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
+            <!-- Countdown Timer -->
+            <div class="countdown-container">
+                <div class="progress-ring"></div>
+                <div class="countdown-circle" id="countdown">5</div>
+                <div class="dot-animation">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-    </div>
-</div>
-     <!-- Offline Page Content (Dynamically Shown) -->
+
+    <!-- Offline Page (Hidden by Default) -->
     <div id="offline-page">
         <div class="container">
             <h1>Oops! You're Offline</h1>
@@ -86,22 +131,23 @@
             <button id="retry-btn" class="btn">Retry</button>
         </div>
     </div>
-<script src="script.js"></script>
-<script src="email.js"></script>
-       <script>
+
+    <script src="script.js"></script>
+    <script src="email.js"></script>
+    <script>
         // Function to check online/offline status
         function checkOnlineStatus() {
             const offlinePage = document.getElementById('offline-page');
-            const mainPage = document.querySelector('.container');
+            const mainContent = document.querySelector('body > :not(#offline-page)'); // All content except offline page
 
             if (!navigator.onLine) {
                 // User is offline
-                offlinePage.style.display = 'block'; // Show offline page
-                mainPage.style.display = 'none'; // Hide main page
+                offlinePage.style.display = 'flex'; // Show offline page
+                mainContent.style.display = 'none'; // Hide main content
             } else {
                 // User is online
                 offlinePage.style.display = 'none'; // Hide offline page
-                mainPage.style.display = 'block'; // Show main page
+                mainContent.style.display = 'block'; // Show main content
             }
         }
 
