@@ -21,7 +21,6 @@
             height: 100%;
             background-color: #1a1a1a;
             color: #ffffff;
-            display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
@@ -135,26 +134,34 @@
     <script src="script.js"></script>
     <script src="email.js"></script>
     <script>
-        // Simplified JavaScript for Online/Offline Status and Retry Button
+        // Function to check online/offline status
         function checkOnlineStatus() {
             const offlinePage = document.getElementById('offline-page');
             const mainContent = document.querySelector('body > :not(#offline-page)');
 
             if (!navigator.onLine) {
-                offlinePage.style.display = 'flex';
-                mainContent.style.display = 'none';
+                // User is offline
+                offlinePage.style.display = 'flex'; // Show offline page
+                mainContent.style.display = 'none'; // Hide main content
             } else {
-                offlinePage.style.display = 'none';
-                mainContent.style.display = 'block';
+                // User is online
+                offlinePage.style.display = 'none'; // Hide offline page
+                mainContent.style.display = 'block'; // Show main content
             }
         }
 
+        // Event listeners for online/offline status
         window.addEventListener('online', checkOnlineStatus);
         window.addEventListener('offline', checkOnlineStatus);
-        document.addEventListener('DOMContentLoaded', checkOnlineStatus);
 
+        // Check status on page load (with a slight delay to avoid flickering)
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(checkOnlineStatus, 100); // Delay to ensure accurate status
+        });
+
+        // Retry button functionality
         document.getElementById('retry-btn').addEventListener('click', () => {
-            window.location.reload();
+            window.location.reload(); // Reload the page
         });
     </script>
 </body>
